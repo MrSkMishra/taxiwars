@@ -14,10 +14,9 @@ from django.contrib.auth import authenticate,login,logout
 
 
 
+def landing_page(request):
+    return render(request,'landing.html')
 
-
-# class GettingView(TemplateView):
-#     template_name = "support/index.html"
 
 @login_required
 def getting_views(request):
