@@ -1,12 +1,4 @@
-import requests
-from django.views import View
-from django.http import JsonResponse
 from django.shortcuts import render,reverse,redirect
-from django.views.generic import TemplateView,CreateView
-from django.views import generic
-from .forms import CustomUserCreationForm,AuthenticationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -43,7 +35,7 @@ def sign_up_view(request):
         user.set_password(password)
         user.save()
         messages.info(request,'Account Created Successfully')
-        return redirect('/signup/')
+        return redirect('login')
     return render(request,'signup.html')
     
 

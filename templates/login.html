@@ -6,7 +6,25 @@
 
 {% block content %}
 
+
+{% if request.user.is_authenticated %}
+
+
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <a href="{% url 'myview' %}"
+        class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-dark">
+        <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+        you're already logged in  as :- {{request.user.username}}
+    </a>
+    <div
+
+
+
+{% else %}
+
+
 <script src="https://cdn.tailwindcss.com"></script>
+
 
 
 <section class="bg-gray-50 dark:bg-gray-900">
@@ -64,4 +82,6 @@
     </div>
 </section>
 
+
+{% endif %}
 {% endblock content %}
