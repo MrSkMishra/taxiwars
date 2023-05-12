@@ -46,7 +46,7 @@ def login_page(request):
 
         if not User.objects.filter(username=username).exists():
             messages.error(request,'Invalid username')
-            return redirect('signup')
+            return redirect('login')
         user = authenticate(username = username , password = password)
         if user is None:
             messages.error(request,'Invalid Credentials')
