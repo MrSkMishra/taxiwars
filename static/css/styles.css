@@ -1,24 +1,58 @@
-body {
+/* body {
     background-color: #f2f2f2;
     font-family: Arial, sans-serif;
-  }
+  } */
 
   /* Style the table header */
-  #taxi-table th {
+  /* #taxi-table th {
     background-color: #1d4a77;
     color: #fff;
     font-weight: normal;
     padding: 12px;
     text-align: left;
-  }
+  } */
 
   /* Style the table rows */
-  #taxi-table td {
+  /* #taxi-table td {
     padding: 12px;
     border-bottom: 1px solid #75e1d4;
-  }
+  } */
 
   /* Add a subtle lighting effect to table rows */
-  #taxi-table tbody tr:hover {
+  /* #taxi-table tbody tr:hover {
     box-shadow: 0px 0px 5px rgba(250, 73, 73, 0.1);
+  } */
+
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  th {
+    background-color: #5dc1ce;
+    color: #13110f;
+    font-weight: normal;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  td {
+    padding: 12px;
+    border-bottom: 1px solid #b58bb9;
+  }
+  
+  th, td {
+    text-align: center;
+  }
+  
+  h3 {
+    text-align: center;
+  }
+  
+  table.responsive {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
   }

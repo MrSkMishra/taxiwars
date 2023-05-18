@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+import requests
 
 
 
@@ -20,6 +21,11 @@ def sign_up_view(request):
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
         password = request.POST.get('password')
+
+        # Check if any of the fields are empty
+        if not first_name or not last_name or not username or not password:
+            messages.error(request, 'Please fill in all the fields')
+            return redirect('signup')
 
         user = User.objects.filter(username = username)
         if user.exists():
@@ -44,6 +50,11 @@ def login_page(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
+        # Check if the username and password fields are not empty
+        if not username or not password:
+            messages.error(request, 'Please enter both username and password')
+            return redirect('login')
+
         if not User.objects.filter(username=username).exists():
             messages.error(request,'Invalid username')
             return redirect('login')
@@ -60,3 +71,10 @@ def logout_page(request):
     logout(request)
     return redirect('login')
 
+@login_required
+def home(request):
+    response = requests.get('https://countriesnow.space/api/v0.1/countries/population/cities').json()
+    context = {
+        'response':response
+        }
+    return render(request,'support/home.html',context)

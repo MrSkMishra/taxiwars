@@ -1,0 +1,42 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+
+
+    {{response}}
+
+<body>
+
+	<!-- <table id="nothing">
+		<thead>
+			<tr>
+				<th>Details</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Street Address 1</th>
+				<th>Street Address 2</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Phone Number</th>
+				<th>Driving License</th>
+				<th>Aadhar Card</th>
+
+			</tr>
+		</thead>
+		</tbody>
+        
+
+	</table> -->
+
+
+    {% for i in response %}
+        
+        {{i.city}}
+    
+
+  {% endfor %}
+
+
+	{% endblock %}
