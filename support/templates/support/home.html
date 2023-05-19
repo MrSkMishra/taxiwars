@@ -1,14 +1,11 @@
+{% extends 'base.html' %}
 
-{% extends "base.html" %}
 {% block content %}
 
 
-
-    {{response}}
-
 <body>
 
-	<!-- <table id="nothing">
+	<!-- <table id="taxi-table">
 		<thead>
 			<tr>
 				<th>Details</th>
@@ -25,18 +22,90 @@
 
 			</tr>
 		</thead>
+		<tbody>
 		</tbody>
-        
-
 	</table> -->
 
 
-    {% for i in response %}
-        
-        {{i.city}}
-    
 
-  {% endfor %}
+
+	<div class="relative overflow-x-auto">
+		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" id="nathing-table">
+			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+				<tr>
+					<th scope="col" class="px-6 py-3" >
+						Details
+					</th>
+					<th scope="col" class="px-3 py-3">
+						First Name
+					</th>
+					<th scope="col" class="px-3 py-3">
+						Last Name
+					</th>
+					<th scope="col" class="px-3 py-3">
+						Email
+					</th>
+					<th scope="col" class="px-3 py-3">
+						Street Address 1
+					</th>
+					<th scope="col" class="px-3 py-3">
+						Street Address 2
+					</th>
+					<th scope="col" class="px-3 py-3">
+					City
+				</th>
+				<th scope="col" class="px-3 py-3">
+					State
+				</th>
+				<th scope="col" class="px-3 py-3">
+					Phone Number
+				</th>
+				<th scope="col" class="px-3 py-3">
+					Driving License
+				</th>
+				<th scope="col" class="px-3 py-3">
+					Aadhar Card
+				</th>
+				<th scope="col" class="px-3 py-3">
+					Verify Details
+				</th>
+				</tr>
+				
+			</thead>
+			{% for i in driver %}
+			<tbody>
+				<tr class="border-b dark:border-neutral-500">
+					<td class="whitespace-nowrap px-6 py-4 font-medium">{{i.details}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.first_name}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.last_name}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.email}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.street_address_1}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.street_address_2}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.city}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.driving_lisence}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.aadhar_card}}</td>
+					<td class="whitespace-nowrap px-6 py-4">{{i.driver_photo}}</td>
+
+
+
+					<td><button style="width: 70px; height: 50px; background-color: cadetblue;color: white;">
+						<strong>verify</strong>
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+					  class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+					  <path d="M5 12h14M12 5l7 7-7 7"></path>
+					</svg>
+					</button></td>
+				  </tr>
+			</tbody>
+			{% endfor %}
+			
+			</tbody>
+		</table>
+	</div>
+	
+
+
+
 
 
 	{% endblock %}

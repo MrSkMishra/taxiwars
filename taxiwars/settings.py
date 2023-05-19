@@ -41,7 +41,13 @@ INSTALLED_APPS = [
     #Third Party Apps
     'crispy_forms',
     "crispy_tailwind",
+    'rest_framework'
 ]
+
+
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
