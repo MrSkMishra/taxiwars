@@ -71,10 +71,10 @@ def logout_page(request):
     logout(request)
     return redirect('login')
 
-@login_required
-def home(request):
-    response = requests.get('https://countriesnow.space/api/v0.1/countries/population/cities').json()
-    context = {
-        'response':response
-        }
-    return render(request,'support/home.html',context)
+# @login_required
+# def home(request):
+#     response = requests.get('https://countriesnow.space/api/v0.1/countries/population/cities').json()
+#     context = {
+#         'response':response
+#         }
+#     return render(request,'support/home.html',context)

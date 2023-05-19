@@ -28,7 +28,7 @@ from support.views import sign_up_view,logout_page
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('',include('support.urls')),
     # path('login/',LoginView.as_view(),name="login"),
 
