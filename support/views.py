@@ -13,6 +13,11 @@ from django.utils.decorators import method_decorator
 import requests
 from django.middleware.csrf import get_token
 from .models import *
+from rest_framework.parsers import JSONParser
+from .serializers import *
+from rest_framework.generics import CreateAPIView
+from django.core.paginator import Paginator
+from rest_framework import generics
 
 
 
@@ -21,9 +26,56 @@ def landing_page(request):
     return render(request,'landing.html')
 
 
+# @login_required
+# def getting_views(request):
+#     return render(request,"support/index.html")
+
+
+@login_required
+def getting_customer_details(request):
+    return render(request,"support/customerview.html")
+
+
 @login_required
 def getting_views(request):
-    return render(request,"support/index.html")
+    try:
+        api_url = 'http://localhost:8000/api/driver/get/'
+        response = requests.get(api_url)
+
+        if response.status_code == 200:
+            paginated_data = response.json()
+            paginator = Paginator(paginated_data, 5)
+            page_number = request.GET.get('page')
+            current_page_data = paginator.get_page(page_number)
+
+            if request.method == 'POST':
+                driver_id = request.POST.get('driver_id')
+                verify_url = f'http://localhost:8000/api/driver/verify/{driver_id}/'
+                verify_response = requests.post(verify_url)
+
+                if verify_response.status_code == 200:
+                    # Driver verified successfully
+                    return redirect('myview')
+                else:
+                    error_message = f"Failed to verify the driver. Status code: {verify_response.status_code}"
+                    return render(request, 'error.html', {'error_message': error_message})
+
+            context = {
+                'paginated_data': current_page_data,
+            }
+
+            return render(request, 'support/index.html', context)
+        else:
+            error_message = f"Failed to retrieve paginated data from the API. Status code: {response.status_code}"
+            return render(request, 'error.html', {'error_message': error_message})
+    except requests.exceptions.RequestException as e:
+        error_message = f"An error occurred while making the API request: {str(e)}"
+        return render(request, 'error.html', {'error_message': error_message})
+
+
+
+
+
 
 def sign_up_view(request):
     if request.method == "POST":
@@ -81,15 +133,15 @@ def logout_page(request):
     logout(request)
     return redirect('login')
 
-@login_required
-def home(request):
-    driver = DriverDetails.objects.all()
-    button_clicked = False
-    context = {
-        'driver':driver,
-        'button_clicked':button_clicked
-        }
-    return render(request,'support/home.html',context)
+# @login_required
+# def home(request):
+#     driver = DriverDetails.objects.all()
+#     button_clicked = False
+#     context = {
+#         'driver':driver,
+#         'button_clicked':button_clicked
+#         }
+#     return render(request,'support/home.html',context)
 
 
 
@@ -120,3 +172,40 @@ class SignUpView(APIView):
             'csrf_token': csrf_token,
         }
         return Response(response_data, status=status.HTTP_201_CREATED)
+
+
+# @method_decorator(csrf_exempt, name='dispatch')
+# class DriverCreate(CreateAPIView):
+#     parser_classes = (JSONParser,)
+
+#     def post(self, request):
+#         data = JSONParser().parse(request)
+#         id = data['id']
+#         verify_name = data['verify_name']
+
+#         driver = Driver.objects.get(id=id)
+#         if driver is None:
+#             return Response(status=404)
+#         if driver.verified:
+#             return Response(status=400)
+
+#         driver.verified = True
+#         driver.save()
+#         return Response(status=200, data={'message': 'Driver has been verified'})
+
+
+class VerifyDriverAPIView(APIView):
+    def post(self, request, driver_id):
+        try:
+            instance = DriverDetails.objects.get(id=driver_id)
+        except DriverDetails.DoesNotExist:
+            return Response({'error': 'Invalid driver ID.'}, status=404)
+
+        instance.verified = True
+        instance.save()
+
+        return Response({'verified': True})
+
+class GetVerifiedAPIView(generics.ListAPIView):
+        queryset = DriverDetails.objects.all()
+        serializer_class = DriverSerializer

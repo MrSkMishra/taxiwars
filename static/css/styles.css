@@ -56,3 +56,8 @@
     max-width: 1000px;
     margin: 0 auto;
   }
+
+
+  #pagination-container{
+    background-color: green;width: 50px;color: white;
+  }

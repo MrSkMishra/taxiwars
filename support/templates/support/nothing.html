@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch POST API Data</title>
+</head>
+<body>
+    <h1>Fetch POST API Data</h1>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="param1" placeholder="Param 1" required>
+        <input type="text" name="param2" placeholder="Param 2" required>
+        <button type="submit">Fetch Data</button>
+    </form>
+
+    {% if api_data %}
+        <h2>API Response Data:</h2>
+        <pre>{{ api_data }}</pre>
+    {% endif %}
+</body>
+</html>
+In the above HTML template, there's a form with two input fields (param1 and param2) to provide the data for the POST request. When the form is submitted, the data is sent to the same URL, and the api_data variable is expected to be passed to the template context.
+
+You can render this template using Django's render function in your Django view, passing the api_data as part of the template context. Make sure to replace the placeholders (param1, param2) with the actual names of your POST parameters, and adjust the template according to your specific requirements.
+
+
+
+
+
+

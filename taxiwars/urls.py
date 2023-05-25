@@ -28,20 +28,20 @@ from support.views import SignUpView,logout_page
 
 
 urlpatterns = [
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('',include('support.urls')),
     # path('login/',LoginView.as_view(),name="login"),
 
     path('signup', SignUpView.as_view(),name="signup"),
 
 
-    path('reset-password/',PasswordResetView.as_view(),name="reset-password"),
+    # path('reset-password/',PasswordResetView.as_view(),name="reset-password"),
 
-    path('password-reset-done/',PasswordResetDoneView.as_view(),name="password_reset_done"),
+    # path('password-reset-done/',PasswordResetDoneView.as_view(),name="password_reset_done"),
 
-    path('password-reset-complete/',PasswordResetCompleteView.as_view(),name="password_reset_complete"),
+    # path('password-reset-complete/',PasswordResetCompleteView.as_view(),name="password_reset_complete"),
 
-    path('password-reset-confirm/<uidb64>/<token>/',PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
+    # path('password-reset-confirm/<uidb64>/<token>/',PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
     
     path('logout/',logout_page,name="logout"),
 

@@ -1,89 +1,77 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
 <body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Street Address 1</th>
+                <th>Street Address 2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Driving License</th>
+                <th>Aadhar Card</th>
+                <th>Driver Photo</th>
+                <th>Verified</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in paginated_data %}
+            <tr>
+                <td>{{ driver.id }}</td>
+                <td>{{ driver.first_name }}</td>
+                <td>{{ driver.last_name }}</td>
+                <td>{{ driver.email }}</td>
+                <td>{{ driver.street_address_1 }}</td>
+                <td>{{ driver.street_address_2 }}</td>
+                <td>{{ driver.city }}</td>
+                <td>{{ driver.state }}</td>
+                <td><img src="{{ driver.driving_lisence }}" width="100" height="100"></td>
+                <td><img src="{{ driver.aadhar_card }}" width="100" height="100"></td>
+                <td><img src="{{ driver.driver_photo }}" width="100" height="100"></td>
+                <td>{{ driver.verified }}</td>
+                <td>
+                    {% if not driver.verified %}
+                        <button class="verify-button" data-driver-id="{{ driver.id }}">Verify
 
-	<!-- <table id="taxi-table">
-		<thead>
-			<tr>
-				<th>Details</th>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Email</th>
-				<th>Street Address 1</th>
-				<th>Street Address 2</th>
-				<th>City</th>
-				<th>State</th>
-				<th>Phone Number</th>
-				<th>Driving License</th>
-				<th>Aadhar Card</th>
+                            <svg fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'
+                            class='w-4 h-4 ml-1' viewBox='0 0 24 24'>
+                            <path d='M5 12h14M12 5l7 7-7 7'></path>
+                            </svg>
+                          </button>
 
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table> -->
-
-
-
-
-	<div class="relative overflow-x-auto">
-		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" id="taxi-table">
-			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th scope="col" class="px-6 py-3" >
-						Details
-					</th>
-					<th scope="col" class="px-3 py-3">
-						First Name
-					</th>
-					<th scope="col" class="px-3 py-3">
-						Last Name
-					</th>
-					<th scope="col" class="px-3 py-3">
-						Email
-					</th>
-					<th scope="col" class="px-3 py-3">
-						Street Address 1
-					</th>
-					<th scope="col" class="px-3 py-3">
-						Street Address 2
-					</th>
-					<th scope="col" class="px-3 py-3">
-					City
-				</th>
-				<th scope="col" class="px-3 py-3">
-					State
-				</th>
-				<th scope="col" class="px-3 py-3">
-					Phone Number
-				</th>
-				<th scope="col" class="px-3 py-3">
-					Driving License
-				</th>
-				<th scope="col" class="px-3 py-3">
-					Aadhar Card
-				</th>
-				<th scope="col" class="px-3 py-3">
-					Verify Details
-				</th>
-				</tr>
-				
-			</thead>
-			<tbody>
-				
-				<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-					
-				</tr>
-			</tbody>
-		</table>
-	</div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	<div class="pagination">
+        {% if paginated_data.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ paginated_data.previous_page_number }}">Previous</a>
+        {% endif %}
+    
+        <span class="current-page">{{ paginated_data.number }}</span>
+    
+        {% if paginated_data.has_next %}
+            <a href="?page={{ paginated_data.next_page_number }}">Next</a>
+        {% endif %}
+    
+        {% for page in paginated_data.paginator.page_range %}
+            <a href="?page={{ page }}">{{ page }}</a>
+        {% endfor %}
+    </div>
 	
 
 
+</body>
 
 
-
+	
 	{% endblock %}
