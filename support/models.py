@@ -35,7 +35,9 @@ class DriverDetails(models.Model):
     
 
     def __str__(self):
-        return f'{self.first_name}  :  id : {self.details}  :   verification :{self.verified}'
+        return f'{self.first_name}  :  details : {self.details}  :   verification :{self.verified}'
+
+
 
 class DriverFields(models.Model):
     name = models.CharField(max_length=100)

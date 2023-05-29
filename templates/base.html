@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  class="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <!-- <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^22/dist/tailwind.min.css"> -->
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com/3.3.0"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <body>
-    <div class="max-w-7xl mx-auto ">
+    <div class="max-w-7xl mx-auto " >
         {% include "navbar.html" %}
         {% block content %}
         {% endblock %}

@@ -39,7 +39,7 @@ def getting_customer_details(request):
 @login_required
 def getting_views(request):
     try:
-        api_url = 'http://localhost:8000/api/driver/get/'
+        api_url = 'http://localhost:7001/api/driver/get/'
         response = requests.get(api_url)
 
         if response.status_code == 200:
@@ -50,8 +50,8 @@ def getting_views(request):
 
             if request.method == 'POST':
                 driver_id = request.POST.get('driver_id')
-                verify_url = f'http://localhost:8000/api/driver/verify/{driver_id}/'
-                verify_response = requests.post(verify_url)
+                verify_url = f'http://localhost:7001/api/driver/verify/{driver_id}/'
+                verify_response = requests.post(verify_url, data={'id': driver_id})
 
                 if verify_response.status_code == 200:
                     # Driver verified successfully
@@ -71,8 +71,6 @@ def getting_views(request):
     except requests.exceptions.RequestException as e:
         error_message = f"An error occurred while making the API request: {str(e)}"
         return render(request, 'error.html', {'error_message': error_message})
-
-
 
 
 
@@ -205,6 +203,8 @@ class VerifyDriverAPIView(APIView):
         instance.save()
 
         return Response({'verified': True})
+
+
 
 class GetVerifiedAPIView(generics.ListAPIView):
         queryset = DriverDetails.objects.all()

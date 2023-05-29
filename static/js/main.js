@@ -1,4 +1,5 @@
 console.log("varsha")
+console.log("sonu")
 
 const csrftoken = $.cookie('csrftoken');
 
@@ -19,6 +20,7 @@ const csrftoken = $.cookie('csrftoken');
 				},
 				error: function(error) {
 					// Handle the error, e.g., show an error message to the user
+					// console.log(driverId);
 					alert('Failed to verify driver.');
 				}
 			});
@@ -31,3 +33,5 @@ const csrftoken = $.cookie('csrftoken');
 				verifyDriver(driverId, button);
 			});
 		});
+
+		

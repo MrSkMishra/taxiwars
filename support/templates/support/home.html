@@ -1,103 +1,114 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <body>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Street Address 1</th>
-                <th>Street Address 2</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Driving License</th>
-                <th>Aadhar Card</th>
-                <th>Driver Photo</th>
-                <th>Verified</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for driver in paginated_data %}
-            <tr>
-                <td>{{ driver.id }}</td>
-                <td>{{ driver.first_name }}</td>
-                <td>{{ driver.last_name }}</td>
-                <td>{{ driver.email }}</td>
-                <td>{{ driver.street_address_1 }}</td>
-                <td>{{ driver.street_address_2 }}</td>
-                <td>{{ driver.city }}</td>
-                <td>{{ driver.state }}</td>
-                <td><img src="{{ driver.driving_license.url }}" width="100" height="100"></td>
-                <td><img src="{{ driver.aadhar_card.url }}" width="100" height="100"></td>
-                <td><img src="{{ driver.driver_photo.url }}" width="100" height="100"></td>
-                <td>{{ driver.verified }}</td>
-                <td>
-                    {% if not driver.verified %}
-                        <button class="verify-button" data-driver-id="{{ driver.id }}">Verify</button>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-	<div class="pagination">
-		{% if paginated_data.has_previous %}
-			<a href="?page={{ paginated_data.previous_page_number }}">Previous</a>
-		{% endif %}
-	
-		<span class="current-page">{{ paginated_data.number }}</span>
-	
-		{% if paginated_data.has_next %}
-			<a href="?page={{ paginated_data.next_page_number }}">Next</a>
-		{% endif %}
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                    <table class="min-w-full text-center text-sm font-light">
+                        <thead class="border-b font-medium dark:border-neutral-500">
+                            <tr>
+                                <th scope="col" class="px-6 py-4">ID</th>
+                                <th scope="col" class="px-6 py-4">First Name</th>
+                                <th scope="col" class="px-6 py-4">Last Name</th>
+                                <th scope="col" class="px-6 py-4">Email</th>
+                                <th scope="col" class="px-6 py-4">Street Address 1</th>
+                                <th scope="col" class="px-6 py-4">Street Address 2</th>
+                                <th scope="col" class="px-6 py-4">City</th>
+                                <th scope="col" class="px-6 py-4">State</th>
+                                <th scope="col" class="px-6 py-4">Driving License</th>
+                                <th scope="col" class="px-6 py-4">Aadhar Card</th>
+                                <th scope="col" class="px-6 py-4">Driver Photo</th>
+                                <th scope="col" class="px-6 py-4">Verified</th>
+                                <th scope="col" class="px-6 py-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for driver in paginated_data %}
+                            <tr>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.id }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.first_name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.last_name }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.email }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.street_address_1 }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.street_address_2 }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.city }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.state }}</td>
+                                <td class="whitespace-nowrap px-6 py-4"><img src="{{ driver.driving_license.url }}"
+                                        width="100" height="100"></td>
+                                <td class="whitespace-nowrap px-6 py-4"><img src="{{ driver.aadhar_card.url }}"
+                                        width="100" height="100"></td>
+                                <td class="whitespace-nowrap px-6 py-4"><img src="{{ driver.driver_photo.url }}"
+                                        width="100" height="100"></td>
+                                <td class="whitespace-nowrap px-6 py-4">{{ driver.verified }}</td>
+                                <td class="whitespace-nowrap px-6 py-4">
+                                    {% if not driver.verified %}
+                                    <button class="verify-button" data-driver-id="{{ driver.id }}">Verify</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        {% if paginated_data.has_previous %}
+                        <a href="?page={{ paginated_data.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        <span class="current-page">{{ paginated_data.number }}</span>
+
+                        {% if paginated_data.has_next %}
+                        <a href="?page={{ paginated_data.next_page_number }}">Next</a>
+                        {% endif %}
 
 
 
 
-			
-	</div>
-	
+
+                    </div>
 
 
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 
-	<script>
-		const csrftoken = $.cookie('csrftoken');
+<script>
+    const csrftoken = $.cookie('csrftoken');
 
-		function verifyDriver(driverId, button) {
-			$.ajax({
-				url: `/api/driver/verify/${driverId}/`,
-				type: 'POST',
-				headers: {
-					'X-CSRFToken': csrftoken,
-				},
-				success: function(response) {
-					// Handle the response, e.g., update the UI to show the driver as verified
-					alert('Driver verified successfully!');
-					// Change the button color to green
-					button.css('background-color', '#4CAF50');
-					// Disable the button
-					button.prop('disabled', true);
-				},
-				error: function(error) {
-					// Handle the error, e.g., show an error message to the user
-					alert('Failed to verify driver.');
-				}
-			});
-		}
-	
-		$(document).ready(function() {
-			$('.verify-button').click(function() {
-				var button = $(this);
-				var driverId = button.attr('data-driver-id');
-				verifyDriver(driverId, button);
-			});
-		});
+    function verifyDriver(driverId, button) {
+        $.ajax({
+            url: `/api/driver/verify/${driverId}/`,
+            type: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            success: function (response) {
+                // Handle the response, e.g., update the UI to show the driver as verified
+                alert('Driver verified successfully!');
+                // Change the button color to green
+                button.css('background-color', '#4CAF50');
+                // Disable the button
+                button.prop('disabled', true);
+            },
+            error: function (error) {
+                // Handle the error, e.g., show an error message to the user
+                alert('Failed to verify driver.');
+            }
+        });
+    }
 
-    </script>
-	{% endblock %}
+    $(document).ready(function () {
+        $('.verify-button').click(function () {
+            var button = $(this);
+            var driverId = button.attr('data-driver-id');
+            verifyDriver(driverId, button);
+        });
+    });
+
+</script>
+{% endblock %}

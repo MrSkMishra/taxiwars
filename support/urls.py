@@ -12,5 +12,4 @@ urlpatterns = [
     path('api/driver/get/', GetVerifiedAPIView.as_view(), name='driver-get'),
     path('customerview/', getting_customer_details, name='customerview'),
 
-
 ]
